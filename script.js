@@ -1,10 +1,73 @@
 const syllables = {
-  inicio: ["Yus", "Yei", "Yor", "Yu", "Ma", "Dei", "Lei", "Jhos", "Jhei", "Wuin", "Ander", "Brayan", "Kei", "Jor", "Wil", "Dai", "Grei", "Marly", "Yan", "Dar"],
-  medio: ["lei", "ber", "nai", "vis", "mir", "dan", "lian", "suel", "fer", "yel", "smar", "niel", "son", "mar", "zair", "neth", "luis", "dri", "cel", "dair"],
-  final: ["son", "mar", "nys", "der", "lin", "suel", "ker", "jhos", "del", "beth", "dani", "fer", "niel", "drix", "yel", "day", "elis", "manuel", "car", "jair"]
+  inicio: [
+    "Yus", "Yei", "Yor", "Yu", "Ma", "Dei", "Lei", "Jhos", "Jhei", "Wuin",
+    "Ander", "Brayan", "Kei", "Jor", "Wil", "Dai", "Grei", "Marly", "Yan", "Dar",
+
+    "Yail", "Yaim", "Yaid", "Yorlin", "Yusm", "Yaidel",
+    "Deivy", "Deilyn", "Deimar", "Deibis",
+    "Wuil", "Wuilker", "Winder", "Wist",
+    "Jhon", "Jhony", "Jhorman", "Jhostin",
+    "Keiner", "Keimar", "Keilin",
+    "Andry", "Andriel", "Anderson",
+    "Brail", "Braylin", "Brayker",
+    "Darwin", "Darlis", "Dariel",
+    "Gleid", "Gleimar", "Gleiver"
+  ],
+  medio: [
+    "lei", "ber", "nai", "vis", "mir", "dan", "lian", "suel", "fer", "yel",
+    "smar", "niel", "son", "mar", "zair", "neth", "luis", "dri", "cel", "dair",
+
+    "derson", "leison", "berson", "driel", "nerson",
+    "merson", "luison", "briam", "briel", "miel",
+    "kelvis", "yelvis", "nelvis", "melvis",
+    "nielson", "leimar", "nismar", "yomar",
+    "dairon", "daison", "yerson", "yersi",
+    "linson", "lison", "dison", "disonel",
+    "mari", "maris", "mariel", "marion",
+    "zuel", "zuela", "zuar", "zueli"
+  ],
+  final: [
+    "son", "mar", "nys", "der", "lin", "suel", "ker", "jhos", "del", "beth",
+    "dani", "fer", "niel", "drix", "yel", "day", "elis", "manuel", "car", "jair",
+
+    "sonny", "sonel", "sonair",
+    "marley", "marlin", "marvis",
+    "derson", "dersony", "dersonel",
+    "kerlin", "kerlis", "kerbel",
+    "bethany", "bethlin", "bethair",
+    "luis", "luison", "luisel",
+    "manuelito", "manuelson",
+    "jhonson", "jhonsito",
+    "dairon", "dairson",
+    "yelson", "yerson",
+    "ferney", "fernand",
+    "nelson", "nelvis",
+    "orlando", "orlin"
+  ],
+  cursed: [
+    "x", "xx", "zz", "sh", "th", "ph", "ck", "sky", "lux",
+    "jr", "iii", "iv", "prime", "pro", "vip"
+  ]
 };
 
-const starterNames = ["Yusleimar", "Deiberson", "Wuinferlin", "Jheisonmar", "Marlydair", "Yornelis", "Brayandel", "Keismarbeth"];
+const starterNames = [
+  "Yusleimar",
+  "Deiberson",
+  "Wuinferlin",
+  "Jheisonmar",
+  "Marlydair",
+  "Yornelis",
+  "Brayandel",
+  "Keismarbeth",
+  "Yaidersonel",
+  "Jhormarvis",
+  "Wuilkerson Prime",
+  "Deilynzuel",
+  "Braykerluison",
+  "Andrielnethair",
+  "Gleidersonxx",
+  "Yusmarlin Pro"
+];
 
 const challenges = [
   {
@@ -41,7 +104,9 @@ const roastParts = {
     "Aquí hay un talento administrativo muy serio.",
     "Este nombre llega con eco propio.",
     "Esto suena a protagonista de cadena de WhatsApp.",
-    "Tu creatividad acaba de estacionar en doble fila."
+    "Tu creatividad acaba de estacionar en doble fila.",
+    "Esto tiene más presencia que una tía corrigiendo el árbol genealógico.",
+    "Acabas de fabricar una criatura nominal de alto octanaje."
   ],
   body: [
     "Tiene energía de piñata, bachata y reunión familiar con parlante gigante.",
@@ -49,7 +114,9 @@ const roastParts = {
     "Podría ser cantante, mototaxista o leyenda urbana. Las tres encajan.",
     "Tiene una vibra tan potente que hasta el carnet se imprime en negrita.",
     "Parece el nombre de alguien que resuelve problemas a puro audio de 2 minutos.",
-    "Si lo gritas desde un balcón, al menos tres personas responden."
+    "Si lo gritas desde un balcón, al menos tres personas responden.",
+    "Suena a persona que llega tarde, pero con una historia excelente.",
+    "Tiene aura de sticker de WhatsApp y de alcalde honorífico del barrio."
   ],
   ending: [
     "Nivel meme: altísimo.",
@@ -57,7 +124,9 @@ const roastParts = {
     "Nivel acta de nacimiento irrepetible: máximo.",
     "Nivel poder nominal: ridículamente alto.",
     "Nivel nombre con aura: certificado.",
-    "Nivel tía orgullosa: 100%."
+    "Nivel tía orgullosa: 100%.",
+    "Nivel multiverso registral: activado.",
+    "Nivel protagonista de cadena familiar: total."
   ]
 };
 
@@ -99,8 +168,30 @@ function randomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function randomChance(probability = 0.5) {
+  return Math.random() < probability;
+}
+
+function maybeCapitalizeSuffix(part) {
+  if (!part) return "";
+  return part.charAt(0).toUpperCase() + part.slice(1);
+}
+
 function buildRandomName() {
-  return `${randomItem(syllables.inicio)}${randomItem(syllables.medio)}${randomItem(syllables.final)}`;
+  const base =
+    `${randomItem(syllables.inicio)}${randomItem(syllables.medio)}${randomItem(syllables.final)}`;
+
+  if (randomChance(0.35)) {
+    const cursedPart = randomItem(syllables.cursed);
+
+    if (["prime", "pro", "vip", "jr", "iii", "iv"].includes(cursedPart)) {
+      return `${base} ${maybeCapitalizeSuffix(cursedPart)}`;
+    }
+
+    return `${base}${cursedPart}`;
+  }
+
+  return base;
 }
 
 function makeRoast(name) {
@@ -132,10 +223,12 @@ function renderRound() {
     ...current.picks,
     randomItem(syllables.inicio),
     randomItem(syllables.medio),
-    randomItem(syllables.final)
+    randomItem(syllables.final),
+    ...(randomChance(0.4) ? [randomItem(syllables.cursed)] : [])
   ]);
 
   syllablesBox.innerHTML = "";
+
   availablePool.forEach((piece, idx) => {
     const btn = document.createElement("button");
     btn.className = "syllable";
@@ -150,10 +243,10 @@ function toggleSyllable(piece, button) {
   const exists = selected.includes(piece);
 
   if (exists) {
-    selected = selected.filter(p => p !== piece);
+    selected = selected.filter((p) => p !== piece);
     button.classList.remove("active");
   } else {
-    if (selected.length >= 4) return;
+    if (selected.length >= 5) return;
     selected.push(piece);
     button.classList.add("active");
   }
@@ -169,7 +262,7 @@ function renderHistory() {
     return;
   }
 
-  history.forEach(item => {
+  history.forEach((item) => {
     const div = document.createElement("div");
     div.className = "entry";
     div.innerHTML = `
@@ -185,9 +278,9 @@ function renderHistory() {
 }
 
 function getRank() {
-  if (score >= 18) return "Arquitecto Supremo del Nombre Meme";
-  if (score >= 12) return "Notario del Barrio Intergaláctico";
-  if (score >= 7) return "Aprendiz de Registro Civil Creativo";
+  if (score >= 22) return "Arquitecto Supremo del Nombre Meme";
+  if (score >= 15) return "Notario del Barrio Intergaláctico";
+  if (score >= 8) return "Aprendiz de Registro Civil Creativo";
   return "Becario de la Sílaba Peligrosa";
 }
 
@@ -200,7 +293,8 @@ function showResults() {
   finalScore.textContent = score;
 
   finalHistory.innerHTML = "";
-  history.forEach(item => {
+
+  history.forEach((item) => {
     const div = document.createElement("div");
     div.className = "entry";
     div.innerHTML = `
@@ -224,15 +318,18 @@ function submitName() {
     return;
   }
 
-  const usedPieces = current.picks.filter(p =>
+  const usedPieces = current.picks.filter((p) =>
     finalName.toLowerCase().includes(p.toLowerCase())
   ).length;
 
   let points = 0;
+
   if (usedPieces >= 2) points += 2;
   if (usedPieces === 3) points += 2;
   if (finalName.length >= 8) points += 1;
   if (/[ywkjh]/i.test(finalName)) points += 1;
+  if (/[xyzjk]/i.test(finalName)) points += 1;
+  if (finalName.length > 12) points += 1;
 
   const roast = makeRoast(finalName);
 
@@ -250,6 +347,7 @@ function submitName() {
   renderHistory();
 
   round += 1;
+
   if (round >= challenges.length) {
     showResults();
     return;
@@ -275,6 +373,7 @@ function startGame() {
   interval = setInterval(() => {
     timer -= 1;
     timerEl.textContent = timer;
+
     if (timer <= 0) {
       showResults();
     }
@@ -282,18 +381,25 @@ function startGame() {
 }
 
 randomBtn.addEventListener("click", refreshGenerator);
+
 copyBtn.addEventListener("click", async () => {
-  await navigator.clipboard.writeText(generatorName.textContent);
+  try {
+    await navigator.clipboard.writeText(generatorName.textContent);
+  } catch (error) {
+    console.error("No se pudo copiar el nombre:", error);
+  }
 });
+
 startBtn.addEventListener("click", startGame);
 submitBtn.addEventListener("click", submitName);
+
 clearBtn.addEventListener("click", () => {
   selected = [];
   nameInput.value = "";
-  document.querySelectorAll(".syllable").forEach(el => el.classList.remove("active"));
+  document.querySelectorAll(".syllable").forEach((el) => el.classList.remove("active"));
 });
+
 finishBtn.addEventListener("click", showResults);
 restartBtn.addEventListener("click", startGame);
 
-refreshGenerator();
-generatorName.textContent = starterNames[Math.floor(Math.random() * starterNames.length)];
+generatorName.textContent = randomItem(starterNames);
