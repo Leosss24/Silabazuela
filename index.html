@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silabazuela</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">🇻🇪 Generador y juego de nombres meme</div>
+      <h1>Silabazuela</h1>
+      <p>
+        Te damos sílabas. Tú fabricas nombres venezolanos con potencia de meme,
+        energía de grupo familiar y aura de acta de nacimiento legendaria.
+      </p>
+    </header>
+
+    <main id="app">
+      <section class="card">
+        <h2>Cómo se juega</h2>
+        <p>Combina sílabas para crear el nombre más glorioso posible.</p>
+        <p>Cuantas más sílabas del reto uses, más puntos ganas.</p>
+        <p>Tienes 5 rondas y 45 segundos para dejar tu huella en el registro civil interdimensional.</p>
+        <button id="startBtn" class="btn primary">Empezar partida</button>
+      </section>
+
+      <section class="card">
+        <h2>Generador instantáneo</h2>
+        <div class="generator-box">
+          <div class="generator-label">Nombre generado</div>
+          <div id="generatorName" class="generator-name"></div>
+        </div>
+        <div class="row">
+          <button id="randomBtn" class="btn secondary">Dame otro</button>
+          <button id="copyBtn" class="btn ghost">Copiar</button>
+        </div>
+      </section>
+
+      <section id="gameSection" class="card hidden">
+        <div class="topline">
+          <div>
+            <div id="roundInfo" class="small"></div>
+            <h2 id="challengeTitle"></h2>
+          </div>
+          <div class="stats">
+            <div class="pill">⏱️ <span id="timer">45</span>s</div>
+            <div class="pill">⭐ <span id="score">0</span> pts</div>
+          </div>
+        </div>
+
+        <p id="challengeDesc"></p>
+
+        <div class="small">Sílabas disponibles</div>
+        <div id="syllables" class="syllables"></div>
+
+        <div class="name-box">
+          <div class="small">Tu nombre</div>
+          <input id="nameInput" type="text" placeholder="Ej: Yusmardair" />
+          <div class="row">
+            <button id="submitBtn" class="btn primary">Enviar nombre</button>
+            <button id="clearBtn" class="btn ghost">Limpiar</button>
+            <button id="finishBtn" class="btn warning">Terminar partida</button>
+          </div>
+        </div>
+
+        <div id="feedback" class="feedback hidden"></div>
+      </section>
+
+      <section id="historySection" class="card hidden">
+        <h2>Historial glorioso</h2>
+        <div id="historyList"></div>
+      </section>
+
+      <section id="resultsSection" class="card hidden">
+        <div class="small center">Resultado final</div>
+        <h2 id="rankTitle" class="center"></h2>
+        <div id="finalScore" class="final-score center"></div>
+        <p class="center">puntos de creatividad administrativa</p>
+        <div id="finalHistory"></div>
+        <div class="row center-row">
+          <button id="restartBtn" class="btn primary">Jugar otra vez</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
